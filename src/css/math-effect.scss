@@ -1,0 +1,840 @@
+$color-red: #C21348;
+$color-red2: #993333;
+$color-red3: #884444;
+$color-red4: #966;
+$color-yellow: #bcd42a;
+$color-brawn: #5E412F;
+$color-green: #339933;
+$color-blue: #78C0A8;
+$color-orange: #F07818;
+$color-gold: #F0A830;
+$color-gold-white: #F6C67B;
+$color-clay: #FCEBB6;
+$color-white-pure: #FFFFFF;
+$color-white2: #EEEEEE;
+$color-white3: #DDDDDD;
+$color-grey: #aaaaaa;
+$color-grey2: #ddd;
+$color-black-pure: #000000;
+
+$color-blue-lighter: #98E0C8;
+
+// Animations
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -o-animation: $animation;
+  animation: $animation;
+}
+@mixin animation-name($name) {
+  -webkit-animation-name: $name;
+  animation-name: $name;
+}
+@mixin animation-duration($duration) {
+  -webkit-animation-duration: $duration;
+  animation-duration: $duration;
+}
+@mixin animation-timing-function($timing-function) {
+  -webkit-animation-timing-function: $timing-function;
+  animation-timing-function: $timing-function;
+}
+@mixin animation-delay($delay) {
+  -webkit-animation-delay: $delay;
+  animation-delay: $delay;
+}
+@mixin animation-iteration-count($iteration-count) {
+  -webkit-animation-iteration-count: $iteration-count;
+  animation-iteration-count: $iteration-count;
+}
+@mixin animation-direction($direction) {
+  -webkit-animation-direction: $direction;
+  animation-direction: $direction;
+}
+@mixin animation-fill-mode($fill-mode) {
+  -webkit-animation-fill-mode: $fill-mode;
+  animation-fill-mode: $fill-mode;
+}
+
+// Backface visibility
+// Prevent browsers from flickering when using CSS 3D transforms.
+// Default value is `visible`, but can be changed to `hidden`
+
+@mixin backface-visibility($visibility) {
+  -webkit-backface-visibility: $visibility;
+  -moz-backface-visibility: $visibility;
+  backface-visibility: $visibility;
+}
+
+// Drop shadows
+//
+// Note: Deprecated `.box-shadow()` as of v3.1.0 since all of Bootstrap's
+// supported browsers that have box shadow capabilities now support it.
+
+@mixin box-shadow($shadow...) {
+  -webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
+  box-shadow: $shadow;
+}
+
+// Box sizing
+@mixin box-sizing($boxmodel) {
+  -webkit-box-sizing: $boxmodel;
+  -moz-box-sizing: $boxmodel;
+  box-sizing: $boxmodel;
+}
+
+// CSS3 Content Columns
+@mixin content-columns($column-count, $column-gap: $grid-gutter-width) {
+  -webkit-column-count: $column-count;
+  -moz-column-count: $column-count;
+  column-count: $column-count;
+  -webkit-column-gap: $column-gap;
+  -moz-column-gap: $column-gap;
+  column-gap: $column-gap;
+}
+
+// Optional hyphenation
+@mixin hyphens($mode: auto) {
+  word-wrap: break-word;
+  -webkit-hyphens: $mode;
+  -moz-hyphens: $mode;
+  -ms-hyphens: $mode; // IE10+
+  -o-hyphens: $mode;
+  hyphens: $mode;
+}
+
+// Placeholder text
+@mixin placeholder($color: $input-color-placeholder) {
+  // Firefox
+  &::-moz-placeholder {
+    color: $color;
+    opacity: 1; // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526
+  }
+  &:-ms-input-placeholder { color: $color; } // Internet Explorer 10+
+  &::-webkit-input-placeholder  { color: $color; } // Safari and Chrome
+}
+
+// Transformations
+@mixin scale($ratio...) {
+  -webkit-transform: scale($ratio);
+  -ms-transform: scale($ratio); // IE9 only
+  -o-transform: scale($ratio);
+  transform: scale($ratio);
+}
+
+@mixin scaleX($ratio) {
+  -webkit-transform: scaleX($ratio);
+  -ms-transform: scaleX($ratio); // IE9 only
+  -o-transform: scaleX($ratio);
+  transform: scaleX($ratio);
+}
+@mixin scaleY($ratio) {
+  -webkit-transform: scaleY($ratio);
+  -ms-transform: scaleY($ratio); // IE9 only
+  -o-transform: scaleY($ratio);
+  transform: scaleY($ratio);
+}
+@mixin skew($x, $y) {
+  -webkit-transform: skewX($x) skewY($y);
+  -ms-transform: skewX($x) skewY($y); // See https://github.com/twbs/bootstrap/issues/4885; IE9+
+  -o-transform: skewX($x) skewY($y);
+  transform: skewX($x) skewY($y);
+}
+@mixin translate($x, $y) {
+  -webkit-transform: translate($x, $y);
+  -ms-transform: translate($x, $y); // IE9 only
+  -o-transform: translate($x, $y);
+  transform: translate($x, $y);
+}
+@mixin translate3d($x, $y, $z) {
+  -webkit-transform: translate3d($x, $y, $z);
+  transform: translate3d($x, $y, $z);
+}
+@mixin rotate($degrees) {
+  -webkit-transform: rotate($degrees);
+  -ms-transform: rotate($degrees); // IE9 only
+  -o-transform: rotate($degrees);
+  transform: rotate($degrees);
+}
+@mixin rotateX($degrees) {
+  -webkit-transform: rotateX($degrees);
+  -ms-transform: rotateX($degrees); // IE9 only
+  -o-transform: rotateX($degrees);
+  transform: rotateX($degrees);
+}
+@mixin rotateY($degrees) {
+  -webkit-transform: rotateY($degrees);
+  -ms-transform: rotateY($degrees); // IE9 only
+  -o-transform: rotateY($degrees);
+  transform: rotateY($degrees);
+}
+@mixin perspective($perspective) {
+  -webkit-perspective: $perspective;
+  -moz-perspective: $perspective;
+  perspective: $perspective;
+}
+@mixin perspective-origin($perspective) {
+  -webkit-perspective-origin: $perspective;
+  -moz-perspective-origin: $perspective;
+  perspective-origin: $perspective;
+}
+@mixin transform-origin($origin) {
+  -webkit-transform-origin: $origin;
+  -moz-transform-origin: $origin;
+  -ms-transform-origin: $origin; // IE9 only
+  transform-origin: $origin;
+}
+
+
+// Transitions
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+@mixin transition-property($transition-property...) {
+  -webkit-transition-property: $transition-property;
+  transition-property: $transition-property;
+}
+@mixin transition-delay($transition-delay) {
+  -webkit-transition-delay: $transition-delay;
+  transition-delay: $transition-delay;
+}
+@mixin transition-duration($transition-duration...) {
+  -webkit-transition-duration: $transition-duration;
+  transition-duration: $transition-duration;
+}
+@mixin transition-timing-function($timing-function) {
+  -webkit-transition-timing-function: $timing-function;
+  transition-timing-function: $timing-function;
+}
+@mixin transition-transform($transition...) {
+  -webkit-transition: -webkit-transform $transition;
+  -moz-transition: -moz-transform $transition;
+  -o-transition: -o-transform $transition;
+  transition: transform $transition;
+}
+
+
+// User select
+// For selecting text on the page
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select; // IE10+
+  user-select: $select;
+}
+
+
+@keyframes arrowsAnimation {
+    from { opacity: 1; }
+    to { opacity: 0.5; }
+}
+
+@keyframes cellsOnLoadAnimation {
+    from { border-radius: 80px; }
+    to { border-radius: 8px; }
+}
+@keyframes cellsOnHoverAnimation {
+    from { border-radius: 8px; }
+    to { border-radius: 12px; }
+}
+@keyframes cellsOnCollisionAnimation {
+    0% { border-radius: 8px; }
+    50% { border-radius: 50%; }
+    100% { border-radius: 8px; }
+}
+@keyframes endScreenAnimations {
+    0% { border-radius: 8px; width: calc(100% - 2px); height: calc(100% - 2px); margin: 1px 0 0 1px; }
+    15% { border-radius: 50%; width: calc(100% - 2px); height: calc(100% - 2px); margin: 1px 0 0 1px; }
+    50% { border-radius: 50%; width: 0; height: 0; margin: 50% 0 0 50%; }
+    85% { border-radius: 50%; width: calc(100% - 2px); height: calc(100% - 2px); margin: 1px 0 0 1px; }
+    100% { border-radius: 30px; width: calc(100% - 2px); height: calc(100% - 2px); margin: 1px 0 0 1px; }
+}
+@keyframes hide {
+    0% { opacity: 1 }
+    100% { opacity: 0 }
+}
+@keyframes show {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+@keyframes shakeIt {
+    0% { @include scale(1); }
+    25% { @include scale(0.97); }
+    50% { @include scale(1); }
+    75% { @include scale(1.03); }
+    100% { @include scale(1); }
+}
+@keyframes unitGameEnd {
+    0% { border-radius: 4px; }
+    50% { border-radius: 50%; opacity: 0.6; }
+    99% { @include scale(0.01); opacity: 0.2; }
+    100% { @include scale(0.01); opacity: 0; }
+}
+
+
+body.math-effect {
+    .me-facebook-modal {
+        text-align: center;
+        opacity: 0;
+        @include animation(show 10s 40s forwards);
+    }
+    #react-app {
+        height: 95%;
+    }
+    background-color: #FFFFFF;
+
+    #math-effect {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        @media only screen and (max-width : 991px) {
+            align-items: center;
+            height: 100%;
+        }
+        .game {
+            position: relative;
+            @media only screen and (min-width : 992px) {
+                margin-top: 50px;
+            }
+        }
+        .mobile-helper-text {
+            @include animation(hide 10s 30s forwards);
+        }
+        .field {
+            .row {
+                margin: 0;
+            }
+            .cell {
+                float: left;
+                border-radius: 4px;
+                background-color: $color-clay;
+                .inner-cell {
+                    border-radius: 8px;
+                    background-color: $color-white-pure;
+                    //transition: border-radius 750ms 5ms;
+                    &:hover {
+                        //border-radius: 12px;
+                        @include animation(cellsOnHoverAnimation 0.3s ease 0s infinite alternate);
+                    }
+                }
+                &.side-line {
+                    background-color: $color-gold-white;
+                }
+                &.center-line {
+                    background-color: $color-gold;
+                }
+                &.justCreated .inner-cell {
+                    //border-radius: 8px;
+                    //@include animation(none);
+                    @include animation(cellsOnLoadAnimation 1.5s ease forwards);
+                }
+                &.collision .inner-cell {
+                    @include animation(cellsOnCollisionAnimation 1.2s 0.4s ease forwards);
+                }
+            }
+            &.end-game {
+                @include animation(hide 1.2s 1.5s forwards);
+            }
+
+        }
+        .enemies, .units, .bonuses {
+            position:absolute;
+            z-index: 10;
+            .unit.game-end, .enemy.game-end {
+                    .block, .arrow {
+                        @include animation(unitGameEnd 2s 0.6s linear forwards);
+                    }
+                    .power {
+                        @include animation(hide 1s 0.4s ease forwards);
+                    }
+                .buttons {
+                    display: none;
+                }
+            }
+        }
+        .units {
+            .unit {
+                position: absolute;
+                z-index: 12;
+                &.deleted {
+                    z-index: 11;
+                }
+                .buttons {
+                    visibility: hidden;
+                    position: absolute;
+                    z-index: 18;
+                    opacity: 0;
+                    width: 200%;
+                    height: 200%;
+                    margin: -50% 0 0 -50%;
+                    //transition: opacity 150ms 10ms;
+                    @include transition(all 150ms 10ms);
+                    @include rotate(3deg);
+                    & > div {
+                        position: absolute;
+                        z-index: 18;
+                    }
+                    .top {
+
+                        text-align: center;
+                        left: 0;
+                        right: 0;
+                    }
+                    .bottom {
+                        text-align: center;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                    }
+                    .right {
+                        right: 0;
+                    }
+                }
+                @media (min-width : 992px) {
+                    &:hover {
+                        z-index: 20;
+                        .buttons {
+                            visibility: visible;
+                            opacity: 1;
+                            @include rotate(0deg);
+                        }
+                    }
+                }
+            }
+        }
+        .enemies {
+            .enemy {
+                position: absolute;
+                border-radius: 4px;
+                z-index: 12;
+                &:hover .block-with-arrow {
+                    @include animation(shakeIt 1.5s ease 0s infinite alternate);
+                }
+            }
+            .path {
+                position: absolute;
+                .step {
+                    position: absolute;
+                    z-index: 25;
+                    text-align: center;
+                    animation-duration: 0.4s;
+                    animation-name: arrowsAnimation;
+                    animation-iteration-count: infinite;
+                    animation-direction: alternate;
+                }
+            }
+        }
+        .bonuses {
+            .bonus {
+                position: absolute;
+                border-radius: 50%;
+                border: 1px dotted $color-gold;
+                z-index: 12;
+                color: $color-clay;
+                text-align: center;
+                &.good {
+                    background-color: $color-green;
+                }
+                &.bad {
+                    background-color: $color-red4;
+                }
+                &.deleted {
+                    @include animation(hide 1s ease forwards);
+                }
+            }
+        }
+        .units .unit .power, .enemies .enemy .power {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 15;
+            text-align: center;
+        }
+        .units .unit .block, .enemies .enemy .block {
+            border-radius: 4px;
+            position: absolute;
+            transition: margin 350ms 10ms, width 350ms 10ms, height 350ms 10ms;
+        }
+        .units .unit .arrow, .enemies .enemy .arrow {
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            border-radius: 4px;
+            position: absolute;
+        }
+        .end-game-screen {
+            z-index: 40;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            border-radius: 4px;
+            @include animation(show 1s 2s ease forwards);
+            background-color: $color-gold;
+            .info {
+                width: 100%;
+                margin-top: 50px;
+                text-align: center;
+                position:absolute;
+                opacity: 0;
+                @include animation(show 0.2s 4s linear forwards);
+                h3, p {
+                    color: $color-gold;
+                }
+                .label {
+                    color: $color-gold;
+                    text-decoration: underline;
+                }
+                input:focus {
+                    border-color: $color-gold;
+                    box-shadow: none;
+                    outline-color: $color-gold;
+                }
+                .btn {
+                    background-color: $color-gold;
+                    border-color: $color-gold;
+                    margin-left: 5px;
+                }
+                p.hidden-form {
+                    @include animation(hide 0.5s forwards);
+                }
+                a {
+                    color: $color-gold;
+                    text-decoration: underline;
+                }
+            }
+            .block {
+                position: absolute;
+                border-radius: 12px;
+                margin: 1px 0 0 1px;
+                width: calc(100% - 2px);
+                height: calc(100% - 2px);
+                background-color: $color-white-pure;
+                @include animation(endScreenAnimations 2s 3s linear forwards);
+            }
+        }
+    }
+
+
+    .old {
+        display: none;
+    }
+
+    .math-effect-container {
+
+        #tdMap {
+            position: absolute;
+            /*margin: 0 0 0 118px;*/
+            margin: 0 auto;
+            left: 0;
+            right: 0;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        .main-content-well, .main-content-well-side {
+            min-height: 800px;
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+        }
+
+        .tdCell {
+            width: 60px;
+            height: 60px;
+            float: left;
+            margin: 2px;
+            border-radius: 4px;
+        }
+        .tdCell.main-road {
+            background-color: #F0E5DF;
+        }
+        .tdCell.side-road {
+            background-color: #ffffcc;
+        }
+
+        .emptyCell {
+            border: 1px solid;
+            position: relative;
+        }
+        .tdUnit {
+            font-size: 20px;
+            line-height: 60px;
+            text-align: center;
+            vertical-align: middle;
+            margin: 2px;
+            border-radius: 4px;
+
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            //background-color: #C26213;
+            background-color: $color-orange;
+            z-index: 5;
+        }
+
+        .tdUnit .unitPower {
+            z-index: 5;
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+        }
+
+        .tdUnit.boss {
+            background-color: $color-red;
+        }
+
+        .tdUnit.playerUnit {
+            border: 0px;
+            color: $color-white-pure;
+        }
+
+        .tdUnit.playerUnit.power-1, .tdUnit.playerUnit.power-1 .moveArrow, .tdUnit.playerUnit.power-1 .moveBlock {
+            background-color: #8DE984;
+        }
+        .tdUnit.playerUnit.power-2, .tdUnit.playerUnit.power-2 .moveArrow, .tdUnit.playerUnit.power-2 .moveBlock {
+            background-color: #78DE6D;
+        }
+        .tdUnit.playerUnit.power-3, .tdUnit.playerUnit.power-3 .moveArrow, .tdUnit.playerUnit.power-3 .moveBlock {
+            background-color: #5FCF53;
+        }
+        .tdUnit.playerUnit.power-4, .tdUnit.playerUnit.power-4 .moveArrow, .tdUnit.playerUnit.power-4 .moveBlock {
+            background-color: #4ABA3D;
+        }
+        .tdUnit.playerUnit.power-5, .tdUnit.playerUnit.power-5 .moveArrow, .tdUnit.playerUnit.power-5 .moveBlock {
+            background-color: #30AB22;
+        }
+        .tdUnit.playerUnit.power-6, .tdUnit.playerUnit.power-6 .moveArrow, .tdUnit.playerUnit.power-6 .moveBlock {
+            background-color: #2C9620;
+        }
+        .tdUnit.playerUnit.power-7, .tdUnit.playerUnit.power-7 .moveArrow, .tdUnit.playerUnit.power-7 .moveBlock {
+            background-color: #228017;
+        }
+        .tdUnit.playerUnit.power-8, .tdUnit.playerUnit.power-8 .moveArrow, .tdUnit.playerUnit.power-8 .moveBlock {
+            background-color: #1A6312;
+        }
+        .tdUnit.playerUnit.power-9, .tdUnit.playerUnit.power-9 .moveArrow, .tdUnit.playerUnit.power-9 .moveBlock {
+            background-color: #175210;
+        }
+        .tdUnit.playerUnit.power-10, .tdUnit.playerUnit.power-10 .moveArrow, .tdUnit.playerUnit.power-10 .moveBlock {
+            background-color: #113D0C;
+        }
+
+        .tdUnit.playerUnit.unit-move-0 {
+            background: none;
+        }
+        .tdUnit.playerUnit.unit-move-1 {
+            background: none;
+        }
+        .tdUnit.playerUnit.unit-move-2 {
+            background: none;
+        }
+        .tdUnit.playerUnit.unit-move-3 {
+            background: none;
+        }
+
+        .tdButton {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            color: $color-black-pure;
+            z-index: 6;
+        }
+
+        .tdButton.arrow-0 {
+            top: -4px;
+            left: 22px;
+        }
+        .tdButton.arrow-1 {
+            top: 21px;
+            left: 45px;
+        }
+        .tdButton.arrow-2 {
+            top: 44px;
+            left: 22px;
+        }
+        .tdButton.arrow-3 {
+            top: 21px;
+            left: -3px;
+        }
+        .tdButton.tdStopButton {
+            top: 20px;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+        }
+
+        .arrow {
+            position: absolute;
+            top: 32px;
+            left: 32px;
+            margin: -10px 0px 0px -10px;
+            display: none;
+        }
+
+        .arrow.fa-long-arrow-up, .arrow.fa-long-arrow-down {
+            left: 36px;
+        }
+
+        .bonus {
+            width: 30px;
+            height: 30px;
+            background-color: $color-yellow;
+            position: absolute;
+            border-radius: 30px;
+            line-height: 30px;
+            text-align: center;
+            top: 14px;
+            left: 14px;
+        }
+
+        .bonus.b-minus {
+            background-color: #ED7B61;
+        }
+
+        .tdUnit.playerUnit.unit-move-0 .moveBlock {
+            display: block;
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            top: 30px;
+            border-radius: 0px 0px 4px 4px;
+        }
+        .tdUnit.playerUnit.unit-move-1 .moveBlock {
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            top: 0px;
+            border-radius: 4px 0px 0px 4px;
+        }
+        .tdUnit.playerUnit.unit-move-2 .moveBlock {
+            display: block;
+            position: absolute;
+            width: 60px;
+            height: 30px;
+            top: 0px;
+            border-radius: 4px 4px 0px 0px;
+        }
+        .tdUnit.playerUnit.unit-move-3 .moveBlock {
+            display: block;
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            top: 0px;
+            left: 30px;
+            border-radius: 0px 4px 4px 0px;
+        }
+        .tdUnit.playerUnit.unit-move-0 .moveArrow,
+        .tdUnit.playerUnit.unit-move-1 .moveArrow,
+        .tdUnit.playerUnit.unit-move-2 .moveArrow,
+        .tdUnit.playerUnit.unit-move-3 .moveArrow {
+            display: block;
+            position: absolute;
+            transform: rotate(45deg);
+            -webkit-transform: rotate(45deg);
+            width: 46px;
+            height: 46px;
+            border-radius: 9px;
+            top: 7px;
+            left: 7px;
+            z-index: 1;
+        }
+
+        /*  DIALOG */
+
+        .result-numbers {
+            color: #113D0C;
+            font-size: 22px;
+        }
+
+        .result-text {
+            font-size: 18px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .result-title {
+            text-align: center;
+        }
+
+        #modalHowUnitMove .modal-dialog {
+            width: 600px;
+        }
+
+        .modal-leaferboard-button {
+            left: 0px;
+        }
+
+        #MENameFormContainer {
+            text-align: center;
+        }
+        .me-facebook-modal {
+            float: left;
+            margin-top: 7px;
+        }
+
+        .btn-primary {
+            color: $color-white-pure;
+            background-color: $color-blue;
+            border-color: $color-blue-lighter;
+        }
+
+        .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
+            color: $color-brawn;
+            background-color: $color-orange;
+            border-color: $color-orange;
+        }
+
+        .sidebar {
+            .well {
+                padding-left: 1.5rem;
+            }
+        }
+    }
+
+    .math-effect-stats-container {
+        background-color: $color-white-pure;
+
+        .main-content-well {
+            box-shadow: none;
+            border: none;
+            background-color: $color-gold;
+            padding: 1px 0 1px 1px;
+            .main-content-level2 {
+                width: calc(100% - 2px);
+                border-radius: 40px;
+                background-color: $color-white-pure;
+                padding: 0 5px 15px 5px;
+
+                .panel-default>.panel-heading, .panel-footer {
+                    border:none;
+                    background-color: $color-gold;
+                    color: $color-white-pure;
+                }
+                .table>thead>tr>th {
+                    border-color: $color-gold;
+                }
+                .table>tbody>tr>td {
+                    border-color: $color-gold;
+                }
+                .panel-default {
+                    border-color: $color-gold;
+                    @include box-shadow(none);
+                }
+            }
+        }
+    }
+}
+

@@ -1,8 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from "react-redux";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
+
+import './css/math-effect.scss';
+import 'font-awesome/css/font-awesome.css';
+import store from './store';
+import Clicker from './components/Clicker';
+import MathEffect from './components/MathEffect';
+
+const Routes = {
+  CLICKER: 'clicker',
+  MATH_EFFECT: 'MathEffect',
+  MATH_EFFECT2: 'MathEffect2',
+};
+
+class App extends React.Component {
+  render () {
+    return (
+      <Provider store={store}>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path={ '/' + Routes.CLICKER } component={ Clicker }/>
+            <Route path={ '/' + Routes.MATH_EFFECT } component={ MathEffect }/>
+            <Route path={ '/' + Routes.MATH_EFFECT2 } component={ MathEffect }/>
+          </Switch>
+        </BrowserRouter>
+      </Provider>
+    );
+  }
+}
 
 ReactDOM.render(
   <React.StrictMode>
