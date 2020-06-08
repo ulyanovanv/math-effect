@@ -1,8 +1,6 @@
 import React from 'react';
 
-
 const ModalWithVideo = props => {
-
     const { isVisible, close } = props;
 
     function createVideo() {

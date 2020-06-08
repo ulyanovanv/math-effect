@@ -5,7 +5,6 @@ import { colors } from '../services/unit';
 import { Motion, spring } from 'react-motion';
 import { BlockWithArrow } from './BlockWithArrow';
 
-
 class Unit extends React.Component {
 
     constructor(props) {
@@ -48,7 +47,6 @@ class Unit extends React.Component {
     }
 
     render() {
-
         const { unitConfig, size, margin, onSetDirection, gameRunning } = this.props;
         const { x, y } = unitConfig;
 
@@ -58,9 +56,11 @@ class Unit extends React.Component {
             width: size,
             height: size,
         };
+
         const iconStyle = {
             fontSize: size * 0.75
         };
+
         let panMargin = { x: 0, y: 0 };
         if (this.state.pan.d !== false) {
             switch (this.state.pan.d) {
@@ -71,8 +71,10 @@ class Unit extends React.Component {
                 default: break;
             }
         }
+
         const horizontalIconStyle = Object.assign({lineHeight: (size * 2) + 'px'}, iconStyle);
         let opacity = unitConfig.deleted ? 0 : 1;
+
         return (
             <Motion defaultStyle={{x: unitConfig.was.x, y: unitConfig.was.y, opacity: 1}}
                     style={{x: spring(x), y: spring(y), opacity: spring(opacity)}}>
@@ -82,15 +84,11 @@ class Unit extends React.Component {
                                 this.handlePan(e);
                             } }
                             onPanEnd={ e => this.handlePanEnd(e) }
-                        //onTap={ (e) => {console.log({type:e.type, e}) } }
-                        //onSwipe={ (e) => {console.log({type:e.type, e}) } }
                     >
                         <div
                             className={ `unit ${ unitConfig.deleted ? `deleted` : `` } ${ !gameRunning ? `game-end` : `` }` }
                             style={ Object.assign({}, mainStyle, {
                                 transform: `translate(${ value.x * (size + (margin * 2)) + margin + panMargin.x }px, ${ value.y * (size + (margin * 2)) + margin + panMargin.y }px)`,
-                                //marginTop: value.y * (size + (margin * 2)) + margin + panMargin.y,
-                                //marginLeft: value.x * (size + (margin * 2)) + margin + panMargin.x,
                                 opacity: value.opacity
                             }) }
                         >
@@ -126,17 +124,12 @@ class Unit extends React.Component {
 
                             </div>
                             <div className="power" style={{lineHeight: size + 'px'}}>{ unitConfig.power }</div>
-
                         </div>
                     </Hammer>
                 }
             </Motion>
         );
     }
-
 };
-
-
-
 
 export default Unit;

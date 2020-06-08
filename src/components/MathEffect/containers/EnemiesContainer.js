@@ -3,7 +3,6 @@ import Enemy from '../components/Enemy';
 import Path from '../components/Path';
 
 class EnemiesContainer extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -44,7 +43,6 @@ class EnemiesContainer extends React.Component {
             </div>
         );
     }
-
 };
 
 export default EnemiesContainer

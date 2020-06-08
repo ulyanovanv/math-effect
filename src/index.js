@@ -12,8 +12,7 @@ import MathEffect from './components/MathEffect';
 
 const Routes = {
   CLICKER: 'clicker',
-  MATH_EFFECT: 'MathEffect',
-  MATH_EFFECT2: 'MathEffect2',
+  MATH_EFFECT: 'MathEffect'
 };
 
 class App extends React.Component {
@@ -24,7 +23,6 @@ class App extends React.Component {
           <Switch>
             <Route exact path={ '/' + Routes.CLICKER } component={ Clicker }/>
             <Route path={ '/' + Routes.MATH_EFFECT } component={ MathEffect }/>
-            <Route path={ '/' + Routes.MATH_EFFECT2 } component={ MathEffect }/>
           </Switch>
         </BrowserRouter>
       </Provider>

@@ -1,7 +1,6 @@
 import React from 'react';
 
-class EndGameScreen extends React.Component {
-
+export default class EndGameScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,7 +36,6 @@ class EndGameScreen extends React.Component {
                     <p>You survived - <strong>{ turns }</strong> turns!</p>
                     <p>You killed - <strong>{ kills }</strong> units!</p>
                     <p>You earned - <strong>{ points }</strong> points!</p>
-                    <p style={ {margin: '25px 0'} }><a className="label" href="/games">Try my other games</a></p>
                     { !isUser && <p className={`${ this.state.nameSaved ? `hidden-form` : `` }`}>
                         <input autoFocus type="text" name="name" ref={ node => {
                             this.input = node;
@@ -55,7 +53,4 @@ class EndGameScreen extends React.Component {
             </div>
         );
     }
-
 };
-
-export default EndGameScreen

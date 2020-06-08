@@ -54,4 +54,3 @@ export const resolveCollisionsWithBonuses = function resolveCollisionsWithBonuse
     })
     return [bonuses, units, enemies, collisionLocations];
 };
-

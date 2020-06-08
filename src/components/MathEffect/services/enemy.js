@@ -94,9 +94,6 @@ export const getEnemyStartDirection = function getStartDirection(enemy, radius) 
     return possibleDirections[0];
 };
 
-
-
-
 export const calculateEnemyPath = function calculatePath (enemy, limit) {
     let path = [];
     if (enemy.x === 0 && enemy.y === 0) return [{d: -1, x: 0, y: 0}];

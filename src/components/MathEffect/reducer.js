@@ -1,13 +1,7 @@
-// import { combineReducers } from 'redux';
-
-// import { reducer as dataReducer } from './data/reducer';
-
 export const MOVE_UNIT = 'MathEffect/MOVE_UNIT';
 
-
 const initialState = {
-    units: [],
-
+    units: []
 };
 
 export const reducer = (state = initialState, action) => {

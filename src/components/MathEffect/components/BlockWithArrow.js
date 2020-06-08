@@ -1,8 +1,6 @@
 import React from 'react';
 
-
 export const BlockWithArrow = props => {
-
     let arrowMarginLeft = 0.1325 * props.size;
     let arrowMarginTop = 0.1325 * props.size;
     const arrowAddConst = 0.024 * props.size;

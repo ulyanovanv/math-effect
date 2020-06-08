@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Bonus = props => {
-
     const { bonusConfig, size, margin } = props;
     const { x, y } = bonusConfig;
 
@@ -14,7 +13,6 @@ const Bonus = props => {
     };
 
     return (
-
         <div
             className={ `bonus ${ bonusConfig.power > 0 ? `good` : `bad` } ${ bonusConfig.deleted ? `deleted` : `` }` }
             style={ Object.assign({}, mainStyle, {
@@ -23,16 +21,8 @@ const Bonus = props => {
             }) }
         >
             <div className={`power`} style={ powerStyle }>{ bonusConfig.power }</div>
-
         </div>
-
-
-
     );
-
 };
-
-
-
 
 export default Bonus;

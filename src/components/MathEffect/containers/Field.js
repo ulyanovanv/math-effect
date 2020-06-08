@@ -1,10 +1,7 @@
 import React from 'react';
 import Cell from './../components/Cell';
 
-
-
 export const Field = props => {
-
     const { radius, cellSize, margin, collisionLocations, gameRunning } = props;
     const rowLength = (radius * 2) + 1;
     const rowWidth = (cellSize + (margin * 2)) * rowLength;
@@ -19,15 +16,19 @@ export const Field = props => {
         });
     });
 
-    const renderedList = list.map(row => { return <div style={ rowStyle } className="row" key={row[0].y}>{ row.map(
-            ({x, y}) => <Cell
-                            key={ x + '_' + y }
-                            x={ x }
-                            y={ y }
-                            size={ cellSize }
-                            margin={ margin }
-                            collision={ collisionLocations.filter(loc => loc.x === x && loc.y === y ).length > 0 ? `collision` : `` } />
-        ) }</div>
+    const renderedList = list.map(row => {
+        return <div style={ rowStyle } className="row" key={row[0].y}>
+            { row.map(({x, y}) =>
+                <Cell
+                    key={ x + '_' + y }
+                    x={ x }
+                    y={ y }
+                    size={ cellSize }
+                    margin={ margin }
+                    collision={ collisionLocations.filter(loc => loc.x === x && loc.y === y ).length > 0 ? `collision` : `` }
+                />
+            )}
+        </div>
     });
 
     return (

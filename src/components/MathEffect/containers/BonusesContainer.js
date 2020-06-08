@@ -2,6 +2,9 @@ import React from 'react';
 import Bonus from '../components/Bonus';
 
 class BonusesContainer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
     render() {
         const { radius, cellSize, margin, bonuses } = this.props;
@@ -19,7 +22,6 @@ class BonusesContainer extends React.Component {
             </div>
         );
     }
-
 };
 
 export default BonusesContainer;

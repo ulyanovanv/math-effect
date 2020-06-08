@@ -1,5 +1,3 @@
-
-
 export const coordinatsFromAngle = (radius, angle) => {
     let result = {};
     result.x = Math.round(Math.cos(angle * Math.PI / 180) * radius);
@@ -7,7 +5,6 @@ export const coordinatsFromAngle = (radius, angle) => {
     return result;
 };
 
-export const rand = (min, max) =>
-{
+export const rand = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }

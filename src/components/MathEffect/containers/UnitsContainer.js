@@ -1,9 +1,7 @@
 import React from 'react';
 import Unit from '../components/Unit';
 
-
 class UnitsContainer extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {

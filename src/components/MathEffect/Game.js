@@ -5,43 +5,55 @@ import UnitsContainer from './containers/UnitsContainer';
 import BonusesContainer from './containers/BonusesContainer';
 import EndGameScreen from './containers/EndGameScreen';
 import ModalWithVideo from './components/ModalWithVideo';
-import { moveEveryUnit, resolveUnitCollisions, updateUnitsPower, resolveCollisionsWithEnemies,
-    clearDead, buffCenterUnit } from './services/unit';
-import { moveEveryEnemy, updateEnemiesPower, generateNewEnemyLocation, getEnemyStartDirection,
-    tryUpgradeToBoss, checkLooseConditions } from './services/enemy';
-import { spawnBonus, resolveCollisionsWithBonuses } from './services/bonuses';
-import { allCombatSituationUnits, allCombatSituationEnemies, allCombatSituationBonuses } from './test/situations';
+
+import {rand} from '../Math';
+import {
+    moveEveryUnit,
+    resolveUnitCollisions,
+    updateUnitsPower,
+    resolveCollisionsWithEnemies,
+    clearDead,
+    buffCenterUnit
+} from './services/unit';
+
+import {
+    moveEveryEnemy,
+    updateEnemiesPower,
+    generateNewEnemyLocation,
+    getEnemyStartDirection,
+    tryUpgradeToBoss,
+    checkLooseConditions
+} from './services/enemy';
+
+import {
+    spawnBonus,
+    resolveCollisionsWithBonuses
+} from './services/bonuses';
+
+import {
+    allCombatSituationUnits,
+    allCombatSituationEnemies,
+    allCombatSituationBonuses
+} from './test/situations';
 
 export const DIRECTION_TOP = 0;
 export const DIRECTION_RIGHT = 1;
 export const DIRECTION_DOWN = 2;
 export const DIRECTION_LEFT = 3;
 
-const FIELD_RADIUS = 4;
-const TURNS_TO_SPAWN_ENEMIES = 1;
-
-const CHANCE_TO_SPAWN_BONUS = 15;
+const FIELD_RADIUS = 4; //how many cells to any of 4 directions from center
+const TURNS_TO_SPAWN_ENEMIES = 1; //how often new enemy is created
+const CHANCE_TO_SPAWN_BONUS = 15; //compared to random number to create a new bonus
 const POINTS_PER_KILL = 5;
-
-const CELL_SIZE = 60;
+const CELL_SIZE = 60; //height and with od each cell
 const MARGIN = 2;
 const TEST = false;
 
-const situationEnemies = [
-];
-
-const situationUnits = [
-];
-
+const situationEnemies = [];
+const situationUnits = [];
 const situationBonuses = [];
 
-const rand = (min, max) =>
-{
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 class Game extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -66,6 +78,7 @@ class Game extends React.Component {
             margin: MARGIN,
             howToPlayShow: false
         };
+
         this.handleAddUnit = this.handleAddUnit.bind(this);
         this.addEnemy = this.addEnemy.bind(this);
         this.handleUpdateUnit = this.handleUpdateUnit.bind(this);
@@ -86,10 +99,13 @@ class Game extends React.Component {
 
     addEnemy() {
         if (!this.state.gameRunning) return;
+
+        //every second turn new enemy is created
         if (this.state.turnsEnemyWasCreated !== 0) {
             this.setState({turnsEnemyWasCreated: this.state.turnsEnemyWasCreated - 1});
             return;
         }
+
         const location = generateNewEnemyLocation(FIELD_RADIUS, this.state.enemies, this.state.units);
         let enemy = {
             id: this.state.enemiesCreated,
@@ -101,12 +117,17 @@ class Game extends React.Component {
             deleted: false,
             isBoss: false
         };
+
         enemy.d = getEnemyStartDirection(enemy, FIELD_RADIUS);
         tryUpgradeToBoss(enemy, this.state.turnNumber);
+
         let { enemies } = this.state;
         enemies.push(enemy);
-        this.setState({ enemies, turnsEnemyWasCreated: TURNS_TO_SPAWN_ENEMIES,
-            enemiesCreated: this.state.enemiesCreated + 1 });
+        this.setState({
+            enemies,
+            turnsEnemyWasCreated: TURNS_TO_SPAWN_ENEMIES,
+            enemiesCreated: this.state.enemiesCreated + 1
+        });
     }
 
     tryToCreateBonus(bonuses) {
@@ -116,7 +137,6 @@ class Game extends React.Component {
             this.setState({ bonuses: [newBonus, ...bonuses], bonusesCreated: this.state.bonusesCreated + 1 });
         }
     }
-
 
     handleUpdateUnit(newUnit) {
         if (!this.state.gameRunning) return;
@@ -133,22 +153,28 @@ class Game extends React.Component {
     makeTurn() {
         let pointsEarned = this.state.pointsEarned;
         let bonuses = clearDead([...this.state.bonuses]);
+
         let units = clearDead([...this.state.units]);
         units = buffCenterUnit(units);
         units = moveEveryUnit(units, FIELD_RADIUS);
+
         let enemies = clearDead([...this.state.enemies]);
         enemies = moveEveryEnemy(enemies);
         units = updateUnitsPower(units);
         enemies = updateEnemiesPower(enemies);
+
         let { newUnits, newEnemies, collisionLocations, enemiesKilledThisTurn, powerDestroyed } = resolveCollisionsWithEnemies(units, enemies);
         pointsEarned += powerDestroyed + (enemiesKilledThisTurn * POINTS_PER_KILL);
         newUnits = resolveUnitCollisions(newUnits);
         newEnemies = resolveUnitCollisions(newEnemies);
         [ bonuses, newUnits, newEnemies, collisionLocations ] = resolveCollisionsWithBonuses(bonuses, newUnits, newEnemies, collisionLocations);
 
+        // create bonuses
         if (!TEST) this.tryToCreateBonus(bonuses);
+
         let turnNumber = this.state.turnNumber + 1;
         let enemiesKilled = this.state.enemiesKilled + enemiesKilledThisTurn;
+
         this.setState({
             units: newUnits,
             enemies: newEnemies,
@@ -156,9 +182,11 @@ class Game extends React.Component {
             enemiesKilled,
             collisionLocations,
             pointsEarned });
+
         if (checkLooseConditions(newEnemies)) {
             this.looseGame(turnNumber, enemiesKilled, pointsEarned);
         }
+
         if (!TEST) this.addEnemy();
     }
 
@@ -182,7 +210,6 @@ class Game extends React.Component {
         this.setState({ howToPlayShow: isVisible });
     }
 
-
     render() {
       // eslint-disable-next-line
         return (
@@ -190,30 +217,52 @@ class Game extends React.Component {
             <ModalWithVideo isVisible={ this.state.howToPlayShow } close={ this.setHowToPlay } />
             <div className="mobile-helper-text hidden-md hidden-lg text-center">Swipe your units to set direction</div>
             <div className="game">
-                { !this.state.gameRunning && <EndGameScreen radius={ FIELD_RADIUS } cellSize={ this.state.cellSize }
-                                                            margin={ MARGIN }
-                                                            turns={ this.state.turnNumber }
-                                                            kills={ this.state.enemiesKilled }
-                                                            points={ this.state.pointsEarned } /> }
-                <BonusesContainer radius={ FIELD_RADIUS } cellSize={ this.state.cellSize } margin={ MARGIN }
-                                  bonuses={ this.state.bonuses } gameRunning={ this.state.gameRunning } />
-                <EnemiesContainer radius={ FIELD_RADIUS } cellSize={ this.state.cellSize } margin={ MARGIN }
-                                  enemies={ this.state.enemies } addEnemy={ this.handleAddEnemy }
-                                  getNewEnemyLocation={ this.getNewEnemyLocation } gameRunning={ this.state.gameRunning } />
-                <UnitsContainer radius={ FIELD_RADIUS } cellSize={ this.state.cellSize } margin={ MARGIN }
-                                units={ this.state.units } addUnit={ this.handleAddUnit }
-                                updateUnit={ this.handleUpdateUnit } gameRunning={ this.state.gameRunning }/>
+                { !this.state.gameRunning && <EndGameScreen
+                                                radius={ FIELD_RADIUS }
+                                                cellSize={ this.state.cellSize }
+                                                margin={ MARGIN }
+                                                turns={ this.state.turnNumber }
+                                                kills={ this.state.enemiesKilled }
+                                                points={ this.state.pointsEarned } /> }
+                <BonusesContainer
+                    radius={ FIELD_RADIUS }
+                    cellSize={ this.state.cellSize }
+                    margin={ MARGIN }
+                    bonuses={ this.state.bonuses }
+                    gameRunning={ this.state.gameRunning }
+                />
 
-                <Field radius={ FIELD_RADIUS }
-                       cellSize={ this.state.cellSize }
-                       margin={ MARGIN }
-                       collisionLocations={ this.state.collisionLocations }
-                       gameRunning={ this.state.gameRunning }/>
+                <EnemiesContainer
+                    radius={ FIELD_RADIUS }
+                    cellSize={ this.state.cellSize }
+                    margin={ MARGIN }
+                    enemies={ this.state.enemies }
+                    addEnemy={ this.handleAddEnemy }
+                    getNewEnemyLocation={ this.getNewEnemyLocation }
+                    gameRunning={ this.state.gameRunning }
+                />
 
+                <UnitsContainer
+                    radius={ FIELD_RADIUS }
+                    cellSize={ this.state.cellSize }
+                    margin={ MARGIN }
+                    units={ this.state.units }
+                    addUnit={ this.handleAddUnit }
+                    updateUnit={ this.handleUpdateUnit }
+                    gameRunning={ this.state.gameRunning }
+                />
+
+                <Field
+                    radius={ FIELD_RADIUS }
+                    cellSize={ this.state.cellSize }
+                    margin={ MARGIN }
+                    collisionLocations={ this.state.collisionLocations }
+                    gameRunning={ this.state.gameRunning }
+                />
             </div>
             <div className="mobile-helper-text hidden-md hidden-lg text-center">Tap on enemy to see directions</div>
             <div className="desctop-helper-text text-center">
-              <a href="/" style={ {cursor:'pointer'} } onClick={ () => this.setHowToPlay(!this.state.howToPlayShow) }>How to play</a>
+              <button style={ {cursor:'pointer'} } onClick={ () => this.setHowToPlay(!this.state.howToPlayShow) }>How to play</button>
             </div>
         </div>
         );

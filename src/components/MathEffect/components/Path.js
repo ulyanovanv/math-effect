@@ -1,15 +1,13 @@
 import React from 'react';
 import { calculateEnemyPath } from '../services/enemy';
 
-
 const Path = props => {
-
-
     const { enemy, size, margin } = props;
     const cellRealSize = size + (margin * 2);
     const fullPath = calculateEnemyPath(enemy);
     const iconName = 'caret';
     let stepNumber = 0;
+
     const renderedPath = fullPath.filter(step => {return step.x !== enemy.x || step.y !== enemy.y}).map(step => {
         let fa = 'fa ';
         switch (step.d) {
@@ -34,10 +32,6 @@ const Path = props => {
     return (
         <div className="path">{ renderedPath }</div>
     );
-
 };
-
-
-
 
 export default Path;

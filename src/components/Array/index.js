@@ -1,10 +1,6 @@
-
-
-export const array_rand = (array) =>
-{
+export const array_rand = (array) => {
     return array[Math.floor(Math.random()*array.length)];
 }
-
 
 export const createMap = (array) => {
     let map = {};
@@ -19,7 +15,6 @@ export const createMap = (array) => {
     });
     return map;
 };
-
 
 export const uniqueArray = (arrArg) => {
     return arrArg.filter((elem, pos, arr) => {
